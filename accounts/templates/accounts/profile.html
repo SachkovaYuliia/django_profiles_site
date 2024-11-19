@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Ваш профіль{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header text-center">Ваш профіль</div>
+            <div class="card-body text-center">
+                {% if user_profile.avatar %}
+                    <img src="{{ user_profile.avatar.url }}" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
+                {% endif %}
+                <p><strong>{{ user_profile.user.username }}</strong></p>
+                <p>{{ user_profile.bio }}</p>
+                <p>{{ user_profile.birth_date }}</p>
+                <p>{{ user_profile.location }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h3>Інші користувачі</h3>
+        <div class="list-group">
+            {% for profile in all_profiles %}
+                <div class="list-group-item">
+                    <div class="d-flex align-items-center">
+                        {% if profile.avatar %}
+                            <img src="{{ profile.avatar.url }}" class="img-thumbnail me-3" style="max-width: 50px;">
+                        {% endif %}
+                        <div>
+                            <strong>{{ profile.user.username }}</strong><br>
+                            {{ profile.bio }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
